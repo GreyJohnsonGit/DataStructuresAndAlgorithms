@@ -19,6 +19,7 @@ public:
 	~Array();
 
 	Array<T>& operator=(const Array& rhs);
+	T& operator[](unsigned int index);
 
 	unsigned int GetLength();
 	unsigned int GetSize();
@@ -61,6 +62,10 @@ template <class T> Array<T>& Array<T>::operator=(const Array& rhs) {
 	return *this;
 }
 
+template <class T> T& Array<T>::operator[](unsigned int index) {
+	return *(array + index);
+}
+
 template <class T> unsigned int Array<T>::GetLength() {
 	return length;
 }
@@ -74,6 +79,10 @@ template <class T> void Array<T>::PushBack(const T& value) {
 	if (size > length) {
 		*(array + length) = value;
 	}
+	else if (size == 0) {
+		Resize(1);
+		*(array) = value;
+	}
 	else {
 		Resize(size = size * ARRAY_GROWTH_FACTOR);
 		*(array + length) = value;
@@ -82,7 +91,7 @@ template <class T> void Array<T>::PushBack(const T& value) {
 }
 
 template <class T> T Array<T>::PopBack() {
-	T out = *(array + length);
+	T out = *(array + length - 1);
 	if (length > size / ARRAY_GROWTH_FACTOR) {
 		length--;
 	}
@@ -95,7 +104,7 @@ template <class T> T Array<T>::PopBack() {
 
 
 template <class T> void Array<T>::Resize(unsigned int newSize) {
-	array = realloc(static_cast<void*>(array), newSize);
+	array = (T*)realloc(static_cast<void*>(array), newSize);
 	if (array == nullptr && newSize != 0) {
 		throw std::bad_alloc();
 	}

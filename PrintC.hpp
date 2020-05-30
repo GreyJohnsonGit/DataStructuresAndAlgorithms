@@ -2,11 +2,11 @@
 #define PRINTC
 
 #include <Windows.h>
-#include <stdio.h>
+#include <iostream>
 
 enum class TextColor { white, blue, green, red };
 
-void PrintC(const char* string, TextColor color) {
+void PrintC(std::string string, TextColor color) {
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	switch (color) {
 	case TextColor::white:
@@ -23,9 +23,15 @@ void PrintC(const char* string, TextColor color) {
 		break;
 	}
 
-	printf(string);
+	std::cout << string;
 
 	SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+}
+
+void PrintC(std::string string) {
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
+	std::cout << string;
 }
 
 #endif

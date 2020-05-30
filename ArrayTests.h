@@ -3,17 +3,21 @@
 
 class ArrayTests {
 
-	static bool PushBackOnArray();
-	static bool PopBackOnArray();
+	static bool ConstructorAndDestructor();
+
+	static bool PushAndPopArray();
+
+	static bool ResizeArray();
 
 	static bool CheckArraySize();
 	static bool CheckArrayLength();
 
-	static bool AssignArray();
-	static bool AccessArray();
+	static bool AssignAndAccessArray();
 
 	static bool AddPastArraySize();
 	static bool AddBelowArraySize();
+
+	static bool AssignmentOperator();
 
 public:
 
