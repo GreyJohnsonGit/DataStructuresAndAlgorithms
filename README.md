@@ -12,4 +12,4 @@ Nothing! We all have to start somewhere!
 
 ## Notes
 
-It's Windows dependant! If you (for some odd reason) wanted to run the code, you will have to modify PrintC.hpp as it uses the windows funcitons to print to console with colors.
+It's Windows dependant! If you (for some odd reason) wanted to run the code, you will have to modify PrintC.hpp as it uses the windows functions to print to console with colors.
