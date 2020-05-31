@@ -1,72 +1,103 @@
 #include "ArrayTests.h"
 
 #include <string>
+#include <limits>
 #include "Array.hpp"
 #include "PrintC.hpp"
-
+#include "Messages.hpp"
 
 bool ArrayTests::ConstructorAndDestructor() {
 	try {
-		Array<int> array = Array<int>(8);
+		Array<int> array = Array<int>(0);
+		array.~Array();
+
+		array = Array<int>(54);
+		array.~Array();
+
+		array = Array<int>(INT_MAX);
 		array.~Array();
 	}
 	catch (...) {
-		PrintC("Failed: Array could not be created then destroyed\n", TextColor::red);
+		Messages::Exception();
 		return false;
 	}
-	PrintC("Success: Array successfully created\n", TextColor::green);
+	Messages::Success();
 	return true;
 }
 
 
 bool ArrayTests::PushAndPopArray() {
-	Array<int> array = Array<int>(5);
-	const int testNum = 5;
+	Array<int> array = Array<int>();
+	const int testNum = 7;
 
 	try {
-		for (unsigned int i = 1; i <= 5; i++) {
+		for (int i = 1; i <= testNum; i++) {
 			array.PushBack(i);
 		}
 
-		for (unsigned int i = 5; i >= 1; i--) {
-			if (array.PopBack() != i) {
-				PrintC("Failed: Inaccurate pops", TextColor::red);
+		int pop;
+		for (int i = testNum; i >= 1; i--) {
+			pop = array.PopBack();
+			if (pop != i) {
+				Messages::ExpectedActual(i, pop);
 				return false;
 			}
 		}
 	}
 	catch (...) {
-		PrintC("Failed: Exception thrown\n", TextColor::red);
+		Messages::Exception();
 		return false;
 	}
 
-	PrintC("Success: Push and pop success", TextColor::green);
+	Messages::Success();
+	return true;
+}
+
+
+bool ArrayTests::CheckArraySize() {
+	try {
+		int resizeValue;
+		Array<int> array;
+		if (array.GetSize() != 0) {
+			Messages::ExpectedActual((unsigned int)0, array.GetSize());
+			return false;
+		}
+
+		resizeValue = 50;
+		array = Array<int>(resizeValue);
+		if (array.GetSize() != resizeValue) {
+			Messages::ExpectedActual((unsigned int)resizeValue, array.GetSize());
+			return false;
+		}
+
+		resizeValue = 44;
+		array.Resize(resizeValue);
+		if (array.GetSize() != resizeValue) {
+			Messages::ExpectedActual((unsigned int)resizeValue, array.GetSize());
+			return false;
+		}
+	}
+	catch (...) {
+		PrintC("Failed" << std::endl << "Exception thrown" << std::endl, TextColor::red);
+		return false;
+	}
+	PrintC("Success" << std::endl, TextColor::green);
 	return true;
 }
 
 
 bool ArrayTests::ResizeArray() {
-	printf("No Implementation\n");
+	try {
+		Array<int> array = Array<int>(100);
+		array.Resize(0);
+		
+	}
+	catch (...) {
+
+	}
 	return false;
 }
 
-
-bool ArrayTests::CheckArraySize() {
-	Array<int> array;
-	if (array.GetSize() != 0) {
-		PrintC("Failed: Array size not initialized to 0\n", TextColor::red);
-		return false;
-	}
-
-	array = Array<int>(50);
-	if (array.GetSize() != 50) {
-		PrintC("Failed: Array size not properly set\n", TextColor::red);
-		return false;
-	}
-
-	PrintC("Success: Array size properly modified\n", TextColor::green);
-	return true;
-}
 
 bool ArrayTests::CheckArrayLength() {
 	printf("No Implementation\n");
@@ -99,7 +130,7 @@ bool ArrayTests::AssignmentOperator() {
 
 bool ArrayTests::RunAllTests() {
 	
-	PrintC("Begining Array Tests...\n");
+	PrintW("Begining Array Tests..." << std::endl)
 	
 	int testCount = 0;
 	int successCount = 0;
@@ -110,10 +141,12 @@ bool ArrayTests::RunAllTests() {
 			successCount++;
 	};
 
-	PrintC("ConstructorAndDestructor.....");
+	PrintW("ConstructorAndDestructor.....");
 	runTest(ConstructorAndDestructor);
-	PrintC("PushAndPopArray.....");
+	PrintW("PushAndPopArray.....");
 	runTest(PushAndPopArray);
+	PrintW("CheckArraySize.....");
+	runTest(CheckArraySize);
 
 	return false;
 }

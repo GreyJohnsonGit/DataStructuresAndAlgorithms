@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="Array.hpp" />
     <ClInclude Include="ArrayTests.h" />
+    <ClInclude Include="Messages.hpp" />
     <ClInclude Include="PrintC.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

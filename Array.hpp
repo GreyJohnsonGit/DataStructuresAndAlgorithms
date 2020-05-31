@@ -1,10 +1,9 @@
 #ifndef ARRAY
 #define ARRAY
 
-#define ARRAY_GROWTH_FACTOR 2
-
 #include <stdlib.h>
 #include <exception>
+#include <stdexcept>
 
 template <class T> class Array {
 
@@ -33,15 +32,11 @@ public:
 template <class T> Array<T>::Array() : Array(0) {}
 
 template <class T> Array<T>::Array(unsigned int size) : length(0), size(size), array(nullptr) {
-	int arraySize = sizeof(T) * this->size;
-	array = static_cast<T*>(malloc(arraySize));
-	if (array == nullptr && arraySize != 0) {
-		throw std::bad_alloc();
-	}
+	array = (T*)malloc(sizeof(T) * this->size);
 }
 
 template <class T> Array<T>::~Array() {
-	free(static_cast<void*>(array));
+	free((void*)array);
 	array = nullptr;
 }
 
@@ -50,14 +45,11 @@ template <class T> Array<T>& Array<T>::operator=(const Array& rhs) {
 	length = rhs.length;
 
 	free(static_cast<void*>(array));
-	int arraySize = sizeof(T) * size;
-	array = static_cast<T*>(malloc(arraySize));
-	if (array == nullptr && arraySize != 0) {
-		throw std::bad_alloc();
-	}
-
-	for (unsigned int i = 0; i < size; i++) {
-		*(array + i) = *(rhs.array + i);
+	array = (T*)malloc(sizeof(T) * size);
+	if (array != nullptr) {
+		for (unsigned int i = 0; i < size; i++) {
+			*(array + i) = *(rhs.array + i);
+		}
 	}
 	return *this;
 }
@@ -76,37 +68,28 @@ template <class T> unsigned int Array<T>::GetSize() {
 
 
 template <class T> void Array<T>::PushBack(const T& value) {
-	if (size > length) {
-		*(array + length) = value;
-	}
-	else if (size == 0) {
-		Resize(1);
-		*(array) = value;
-	}
-	else {
-		Resize(size = size * ARRAY_GROWTH_FACTOR);
-		*(array + length) = value;
-	}
+
+	if (size == 0) Resize(1);
+	if (size == length) Resize(size * 2);
+		
+	*(array + length) = value;
 	length++;
 }
 
 template <class T> T Array<T>::PopBack() {
-	T out = *(array + length - 1);
-	if (length > size / ARRAY_GROWTH_FACTOR) {
-		length--;
-	}
-	else {
-		Resize(size = size / ARRAY_GROWTH_FACTOR);
-		length--;
-	}
-	return out;
+	if (length == 0) throw std::out_of_range("PopBack on zero length array");
+
+	length--;
+	return *(array + length);
 }
 
 
 template <class T> void Array<T>::Resize(unsigned int newSize) {
-	array = (T*)realloc(static_cast<void*>(array), newSize);
-	if (array == nullptr && newSize != 0) {
-		throw std::bad_alloc();
+	T* temp = (T*)realloc((void*)(array), sizeof(T) * newSize);
+	if (temp != nullptr) {
+		array = temp;
+		size = newSize;
 	}
 }
+
 #endif

@@ -33,5 +33,8 @@
     <ClInclude Include="Array.hpp">
       <Filter>Structures</Filter>
     </ClInclude>
+    <ClInclude Include="Messages.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
