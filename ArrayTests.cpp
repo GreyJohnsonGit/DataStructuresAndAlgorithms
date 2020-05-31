@@ -3,7 +3,6 @@
 #include <string>
 #include <limits>
 #include "Array.hpp"
-#include "PrintC.hpp"
 #include "Messages.hpp"
 
 bool ArrayTests::ConstructorAndDestructor() {
@@ -78,10 +77,10 @@ bool ArrayTests::CheckArraySize() {
 		}
 	}
 	catch (...) {
-		PrintC("Failed" << std::endl << "Exception thrown" << std::endl, TextColor::red);
+		Messages::Exception();
 		return false;
 	}
-	PrintC("Success" << std::endl, TextColor::green);
+	Messages::Success();
 	return true;
 }
 
@@ -90,11 +89,11 @@ bool ArrayTests::ResizeArray() {
 	try {
 		Array<int> array = Array<int>(100);
 		array.Resize(0);
-		
 	}
 	catch (...) {
-
+		
 	}
+	printf("No Implementation\n");
 	return false;
 }
 
@@ -135,18 +134,23 @@ bool ArrayTests::RunAllTests() {
 	int testCount = 0;
 	int successCount = 0;
 
-	auto runTest = [&](bool (*test)(void)) {
+	auto runTest = [&](bool (*test)(void), std::string testName) {
 		testCount++;
+		Messages::StartTest(testName);
 		if ((*test)() == true)
 			successCount++;
 	};
 
-	PrintW("ConstructorAndDestructor.....");
-	runTest(ConstructorAndDestructor);
-	PrintW("PushAndPopArray.....");
-	runTest(PushAndPopArray);
-	PrintW("CheckArraySize.....");
-	runTest(CheckArraySize);
-
+	runTest(ConstructorAndDestructor, "ConstructorAndDestructor");
+	runTest(PushAndPopArray, "PushAndPopArray");
+	runTest(CheckArraySize, "CheckArraySize");
+	runTest(ResizeArray, "ResizeArray");
+	runTest(CheckArrayLength, "CheckArrayLength");
+	runTest(AssignAndAccessArray, "AssignAndAccessArray");
+	runTest(AddPastArraySize, "AddPastArraySize");
+	runTest(AddBelowArraySize, "AddBelowArraySize");
+	runTest(AssignmentOperator, "AssignmentOperator");
+	
+	Messages::TestResults(testCount, successCount);
 	return false;
 }

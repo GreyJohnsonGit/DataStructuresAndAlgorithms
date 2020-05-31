@@ -85,6 +85,7 @@ template <class T> T Array<T>::PopBack() {
 
 
 template <class T> void Array<T>::Resize(unsigned int newSize) {
+	if (newSize == 0) throw std::invalid_argument("Cannot realloc with 0"); // TODO Assign array to nullptr and add logic to accout for it in other functions.
 	T* temp = (T*)realloc((void*)(array), sizeof(T) * newSize);
 	if (temp != nullptr) {
 		array = temp;
