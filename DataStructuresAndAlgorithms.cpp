@@ -2,7 +2,7 @@
 
 int main()
 {
-    ArrayTests::RunAllTests();
+    ArrayTest_RunAllTests();
 
     return 0;
 }

@@ -5,6 +5,17 @@
 #include "Array.hpp"
 #include "Messages.hpp"
 
+static bool ArrayTest_ConstructorAndDestructor();
+static bool ArrayTest_PushAndPopArray();
+static bool ArrayTest_ResizeArray();
+static bool ArrayTest_CheckArraySize();
+static bool ArrayTest_CheckArrayLength();
+static bool ArrayTest_AssignAndAccessArray();
+static bool ArrayTest_AddPastArraySize();
+static bool ArrayTest_AddBelowArraySize();
+static bool ArrayTest_AssignmentOperator();
+static bool ArrayTest_RunAllTests();
+
 bool ArrayTests::ConstructorAndDestructor() {
 	try {
 		Array<int> array = Array<int>(0);
@@ -55,25 +66,16 @@ bool ArrayTests::PushAndPopArray() {
 
 bool ArrayTests::CheckArraySize() {
 	try {
-		int resizeValue;
+		const int runs = 3;
+		unsigned int resizeValues[runs] = { 0, 50, 44 };
 		Array<int> array;
-		if (array.GetSize() != 0) {
-			Messages::ExpectedActual((unsigned int)0, array.GetSize());
-			return false;
-		}
 
-		resizeValue = 50;
-		array = Array<int>(resizeValue);
-		if (array.GetSize() != resizeValue) {
-			Messages::ExpectedActual((unsigned int)resizeValue, array.GetSize());
-			return false;
-		}
-
-		resizeValue = 44;
-		array.Resize(resizeValue);
-		if (array.GetSize() != resizeValue) {
-			Messages::ExpectedActual((unsigned int)resizeValue, array.GetSize());
-			return false;
+		for (unsigned int i = 0; i < runs; i++) {
+			array = Array<int>(resizeValues[i]);
+			if (array.GetSize() != resizeValues[i]) {
+				Messages::ExpectedActual(resizeValues[i], array.GetSize());
+				return false;
+			}
 		}
 	}
 	catch (...) {
@@ -87,8 +89,30 @@ bool ArrayTests::CheckArraySize() {
 
 bool ArrayTests::ResizeArray() {
 	try {
+		const int runs = 3;
+		unsigned int resizeValues[3] = { 0, 100, INT_MAX};
 		Array<int> array = Array<int>(100);
-		array.Resize(0);
+
+		unsigned int resizeValue = 0;
+		array.Resize(resizeValue);
+		if (array.GetSize() != resizeValue) {
+			Messages::ExpectedActual(resizeValue, array.GetSize());
+			return false;
+		}
+
+		resizeValue = 0;
+		array.Resize(resizeValue);
+		if (array.GetSize() != resizeValue) {
+			Messages::ExpectedActual(resizeValue, array.GetSize());
+			return false;
+		}
+
+		resizeValue = INT_MAX;
+		array.Resize(resizeValue);
+		if (array.GetSize() != resizeValue) {
+			Messages::ExpectedActual(resizeValue, array.GetSize());
+			return false;
+		}
 	}
 	catch (...) {
 		

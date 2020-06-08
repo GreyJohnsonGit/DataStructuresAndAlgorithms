@@ -5,13 +5,21 @@
 #include <exception>
 #include <stdexcept>
 
-template <class T> class Array {
+struct Array {
 
-	T* array;
+	void* data;
 	unsigned int size;
 	unsigned int length;
 
-public:
+};
+
+void Array_init(struct Array* this);
+
+void Array_init(struct Array* this) {
+	this.data = nullptr;
+	this.size = 0;
+	this.length = 0;
+}
 
 	Array();
 	Array(unsigned int size);
@@ -85,12 +93,17 @@ template <class T> T Array<T>::PopBack() {
 
 
 template <class T> void Array<T>::Resize(unsigned int newSize) {
-	if (newSize == 0) throw std::invalid_argument("Cannot realloc with 0"); // TODO Assign array to nullptr and add logic to accout for it in other functions.
-	T* temp = (T*)realloc((void*)(array), sizeof(T) * newSize);
-	if (temp != nullptr) {
-		array = temp;
-		size = newSize;
+	if (newSize == 0) {
+		free((void*)array);
+		array = nullptr;
 	}
+	else if (array == nullptr) {
+		array = (T*)malloc(sizeof(T) * newSize);
+	}
+	else {
+		array = (T*)realloc((void*)array, sizeof(T) * newSize);
+	}
+	size = newSize;
 }
 
 #endif
