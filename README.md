@@ -4,12 +4,10 @@ I really didn't feel like I implemented enough of the important (and interesting
 
 I'm just using C (started with C++, but that got real gross real fast). 
 
-In addition, I'm getting some practice in with test driven development (no tools, just some boilerplate testing functions).
-
 ## Completed So Far
 
-Nothing! We all have to start somewhere!
+Arrays
 
 ## Notes
 
-It's going to be linux dependant because I want to make the console colorful!
+I'm not using compile time arrays, because I want to be as close to base as possible (Well I'm not managing my own memory, but that level is just too far from the challenge).
