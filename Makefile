@@ -1,4 +1,4 @@
-FLAGS = -g
+FLAGS = -g -std=c11
 
 default: main.o array.o
 	gcc main.o array.o -o exe

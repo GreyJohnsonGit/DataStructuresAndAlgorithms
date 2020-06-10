@@ -4,21 +4,17 @@
 int main()
 {
 	struct Array array;
-	Array_init(&array, 10);
+	Array_init(&array, 10, sizeof(double));
 
-	size_t size, length;
-	Array_getSize(&array, &size);
-	Array_getLength(&array, &length);
-	printf("Size: %zu\tLength: %zu\n", size, length);
+	for (size_t i = 0; i < 10; i++)
+	{
+		double* num = malloc(sizeof(double));
+		*num = 3.14 * i;
+		Array_assign(&array, i, (void*)num);
+		free(num);	
+	}
 	
-	int* assignValuePtr = malloc(sizeof(int));
-	*assignValuePtr = 25;
-	Array_assign(&array, 5, (void**)&assignValuePtr);
-	printf("array1[5] = 25\n");
-
-	int* accessValuePtr;
-	Array_access(&array, 5,(void**)&accessValuePtr);
-        printf("array1[5]: %d\n", *accessValuePtr);
+	Array_print(&array, print_double);
 
 	Array_free(&array);
 	return 0;
