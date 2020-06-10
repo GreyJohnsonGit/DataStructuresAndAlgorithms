@@ -2,11 +2,12 @@
 
 I really didn't feel like I implemented enough of the important (and interesting) data structures and algoritms in my university class. Soooooo, here I'm going through as many important and interesting ones that I can find (even the basics).
 
-I'm just using C (started with C++, but that got real gross real fast). 
+I'm just using C (started with C++, but that got real gross, real fast). 
 
 ## Completed So Far
 
-Arrays
+Arrays - Complete
+Linked List - In Progress
 
 ## Notes
 

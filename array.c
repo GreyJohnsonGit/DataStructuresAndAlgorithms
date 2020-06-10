@@ -12,65 +12,49 @@ void Array_free(struct Array* this) {
 	this->data = NULL;
 }
 
-void* Array_access(struct Array* this, size_t index) {
-	char* out = malloc(this->typeSize);
-	for(size_t i = 0; i < this->typeSize; i++){
-		*(out + i) = *((char*)this->data + (index * this->typeSize) + i);
-	}
-	return (void*)out;
+void Array_access(struct Array* this, size_t index, void* into) {
+	copyElement(into,
+		(void*)((char*)this->data + (index * this->typeSize)),
+		this->typeSize);
 }
 
-void Array_assign(struct Array* this, size_t index, void* element) {
-	for(size_t i = 0; i < this->typeSize; i++){
-		*((char*)this->data + (index * this->typeSize) + i) = *((char*)element + i);
-	}
+void Array_assign(struct Array* this, size_t index, void* from) {
+	copyElement((void*)((char*)this->data + (index * this->typeSize)),
+		from,
+		this->typeSize);
 }
-/*
-int Array_delete(struct Array* this, size_t index) {
-	while(index + 1 < this->length) {
-		for(int i = 0; i < this->typeSize; i++){
-			*((char*)this->data + index + i) = *((char*)this->data + (index + 1) + i);
-		}
-		index++;
-	}
+
+void Array_delete(struct Array* this, size_t index) {
 	this->length--;
-	return 0;
+	for(index; index < this->length; index++) {
+		void* nextElement = malloc(this->typeSize);
+		Array_access(this, index + 1, nextElement);
+		Array_assign(this, index, nextElement);
+		free(nextElement);
+	}
 }
 
-int Array_getSize(struct Array* this, size_t* size) {
-	*size = this->size;
-	return 0;
+size_t Array_getSize(struct Array* this) {
+	return this->size;
 }
 
-int Array_getLength(struct Array* this, size_t* length) {
-	*length = this->length;
-	return 0;
-}
+size_t Array_getLength(struct Array* this) {
+	return this->length;
+}	
 
-int Array_pop(struct Array* this, void** element) {
-	
-	if(this->data == NULL) return -1;
-	
-	*element = *(this->data + this->length - 1);
+void Array_pop(struct Array* this, void* into) {
+	Array_access(this, this->length - 1, into);
 	this->length--;
-	return 0;
 }
 
-int Array_push(struct Array* this, void** element) {
-	
-	if(this->data == NULL) return -1;
-	
+void Array_push(struct Array* this, void* from) {
 	if(this->length == this->size) Array_resize(this, this->length + 1);
 	else this->length++;
-	*(this->data + (this->length - 1) * sizeof(void*)) = *element;
-	*element = NULL;
-	return 0;
+	Array_assign(this, this->length - 1, from);
 }
-*/
+
 void Array_resize(struct Array* this, size_t newLength) {
-	while(newLength > this->size) {
-		this->size *= 2;
-	}
+	for(this->size; newLength > this->size; this->size *= 2);
 	this->data = realloc(this->data, this->typeSize * this->size);
 	this->length = newLength;
 }
@@ -80,6 +64,12 @@ void Array_print(struct Array* this, void (*print)(void*)) {
 		printf("[%lu]: ", i);
 		print((void*)((char*)this->data + (i * this->typeSize)));
 		printf("\n");
+	}
+}
+
+void copyElement(void* into, void* from, size_t typeSize) {
+	for(size_t i = 0; i < typeSize; i++){
+		*((char*)into + i) = *((char*)from + i);
 	}
 }
 
