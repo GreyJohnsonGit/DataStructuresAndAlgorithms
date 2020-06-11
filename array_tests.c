@@ -1,5 +1,6 @@
 #include "array.h"
-#include <stdio.h>
+
+// Testing for Array functions
 
 int main()
 {
