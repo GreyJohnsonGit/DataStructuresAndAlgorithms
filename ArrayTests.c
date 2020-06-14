@@ -9,31 +9,45 @@ int main()
 {
 	struct Array* array = Array_init(10, sizeof(double));
 
+	printf("\n\nInitialize array:\n");
 	for (int i = 0; i < 10; i++)
 	{
 		double num = 3.14 * i;
 		Array_assign(array, i, (void*)&num);	
 	}
-
 	Array_print(array, printDouble);
 
+	printf("\n\nAccess, Peak, Pop:\n");
 	for (int i = 9; i >= 0; i--)
 	{
 		printf("Access: %lf ", *(double*)Array_access(array, i));
 		printf("Peak: %lf \n", *(double*)Array_peak(array));
 		Array_pop(array);
 	}
-
 	Array_print(array, printDouble);
 
-	for (int i = 0; i < 10; i++)
+	printf("\n\nPush up above size:\n");
+	for (int i = 0; i < 20; i++)
 	{
 		double num = 2.0 * i;
 		Array_push(array, (void*)&num);
-		printf("Push: %lf ", num);
-		printf("Access: %lf \n", *(double*)Array_access(array, i));
+		printf("Push: %lf \n", num);
 	}
+	Array_print(array, printDouble);
 
+	printf("\n\nDelete [3]:\n");
+	Array_delete(array, 3);
+	Array_print(array, printDouble);
+
+	printf("\n\nInsert 10 at [3]:\n");
+	double num = 10.0;
+	Array_insert(array, 3, &num);
+	Array_print(array, printDouble);
+
+	printf("\n\nCheck Length:\n%lu\n", Array_getLength(array));
+
+	printf("\n\nResize to 1:\n");
+	Array_resize(array, 1);
 	Array_print(array, printDouble);
 
 	Array_free(array);

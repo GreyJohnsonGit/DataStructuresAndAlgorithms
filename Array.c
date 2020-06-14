@@ -36,7 +36,7 @@ void Array_delete(struct Array* this, size_t index) {
 void Array_insert(struct Array* this, size_t index, void* from) {
 	Array_resize(this, this->length + 1);
 	for (size_t i = this->length - 1; i > index; i--) {
-		copy(Array_access(this, i - 1), Array_access(this, i), this->typeSize);
+		copy(Array_access(this, i), Array_access(this, i - 1), this->typeSize);
 	}
 	Array_assign(this, index, from);
 }
