@@ -40,9 +40,10 @@ void Array_assign(struct Array* this, size_t index, const void* from);
 void Array_delete(struct Array* this, size_t index);
 
 /*
-*	Returns the size of $this.
+*	Element $from is byte copied into $index. Elements are shifted to
+*	allow for the new element.
 */
-size_t Array_getSize(const struct Array* this);
+void Array_insert(struct Array* this, size_t index, void* from);
 
 /*
 *	Returns the length of $this.
