@@ -5,7 +5,8 @@
 #include "LinkedListNode.h"
 #include "Utility.h"
 
-void LinkedList_init(struct LinkedList* this, size_t length, size_t typeSize) {
+struct LinkedList* LinkedList_init(size_t length, size_t typeSize) {
+	struct LinkedList* this = malloc(sizeof(struct LinkedList));
 	this->typeSize = typeSize;
 	this->length = length;
 
@@ -14,53 +15,50 @@ void LinkedList_init(struct LinkedList* this, size_t length, size_t typeSize) {
 		this->tail = NULL;
 	}
 	else {
-		struct LinkedListNode* previous;
-		struct LinkedListNode* current;
-		
 		// Create Head
-		current = malloc(sizeof(struct LinkedListNode));
-		LinkedListNode_init(current, NULL, NULL, malloc(typeSize));		
-		this->head = current;
+		this->head = LinkedListNode_init(this->typeSize);
+
+		struct LinkedListNode* previous = this->head;
+		struct LinkedListNode* current;
 
 		// Create Trailing Nodes
 		for (size_t i = 1; i < length; i++) {
+			current = LinkedListNode_init(this->typeSize);
+			LinkedListNode_link(previous, current);
 			previous = current;
-			current = malloc(sizeof(struct LinkedListNode));
-			LinkedListNode_init(current, previous, NULL, malloc(typeSize));
-			previous->next = current;
 		}
 
 		// Assign Tail
 		this->tail = current;
 	}
+	return this;
 }
 
-void LinkedList_free (struct LinkedList* this) {
-	struct LinkedListNode* previous;
+void LinkedList_free(struct LinkedList* this) {
 	struct LinkedListNode* current = this->head;
+	struct LinkedListNode* next;
 
 	while (current != NULL) {
-		free(current->value);
-		previous = current;
-		current = current->next;
-		free(previous);
+		next = current->next;
+		LinkedListNode_free(current);
+		current = next;
 	}
 }
 
-void	LinkedList_access	(struct LinkedList* this, size_t index, void* into) {
+void* LinkedList_access(struct LinkedList* this, size_t index) {
 	struct LinkedListNode* current = this->head;
-
 	for (size_t i = 0; i < index; i++) {
 		current = current->next;
 	}
-
-	copy(into,
-		current->value,
-		this->typeSize);
+	return current->value;
 }
 
-void	LinkedList_assign	(struct LinkedList* this, size_t index, void* from) {
-	
+void LinkedList_assign	(struct LinkedList* this, size_t index, void* from) {
+	struct LinkedListNode* current = this->head;
+	for (size_t i = 0; i < index; i++) {
+		current = current->next;
+	}
+	copy(current->value, from, this->typeSize);
 }
 
 void LinkedList_print(struct LinkedList* this, void(*print)(void*)) {
@@ -72,5 +70,5 @@ void LinkedList_print(struct LinkedList* this, void(*print)(void*)) {
 		printf(" -> ");
 		current = current->next;
 	}
-	printf("TAIL");
+	printf("TAIL\n");
 }

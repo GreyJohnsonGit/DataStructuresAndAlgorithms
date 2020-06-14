@@ -14,68 +14,66 @@ struct Array {
 };
 
 /*
-*	Initialize $this with given type and length. Automatically adjusts size to fit
-*	length.
+*	Return new Array with $length and $typeSize (And proper size).
 */
-void	Array_init		(struct Array* this, size_t length, size_t typeSize);
+struct Array* Array_init(size_t length, size_t typeSize);
 
 /*
 *	Free allocated memory.
 */
-void	Array_free		(struct Array* this);
+void Array_free(struct Array* this);
 
 /*
-*	Element at $index is byte copied from $this into $into.
+*	Return pointer to element at $index.
 */
-void	Array_access	(const struct Array* this, size_t index, void* into);
+void* Array_access(const struct Array* this, size_t index);
 
 /*
-*	$from is byte copied into the element at $index in $this.
+*	Element $from is byte copied into the element at $index.
 */
-void	Array_assign	(struct Array* this, size_t index, const void* from);
+void Array_assign(struct Array* this, size_t index, const void* from);
 
 /*
-*	Deletes element at $index from $this. Elements are consolidated into
-*	continuous array.
+*	Deletes element at $index. Elements are consolidated into continuous
+*	array.
 */
-void	Array_delete	(struct Array* this, size_t index);
+void Array_delete(struct Array* this, size_t index);
 
 /*
 *	Returns the size of $this.
 */
-void	Array_getSize	(const struct Array* this, size_t* into);
+size_t Array_getSize(const struct Array* this);
 
 /*
 *	Returns the length of $this.
 */
-void	Array_getLength	(const struct Array* this, size_t* into);
+size_t Array_getLength(const struct Array* this);
 
 /*
-*	Byte copies final value of $this into $into
+*	Returns pointer to final element of $this.
 */
-void	Array_peak		(const struct Array* this, size_t* into);
+void* Array_peak(const struct Array* this);
 
 /*
-*	Pops final element from $this into $into. The popped element is deleted and
-*	array length is shortened.
+*	Removes final element from $this.
 */
-void	Array_pop		(struct Array* this, void* into);
+void Array_pop(struct Array* this);
 
 /*
 *	$from is byte copied to the end of $this.
 */
-void	Array_push		(struct Array* this, const void* from);
+void Array_push(struct Array* this, const void* from);
 
 /*
 *	Resize $this to length $newLength. Array size is automatically adjusted in
 *	powers of 2.
 */
-void	Array_resize	(struct Array* this, size_t newLength);
+void Array_resize(struct Array* this, size_t newLength);
 
 /*
 *	$this is printed in format '[index]: print\n' where index is the element's
 *	index and print is the output of the $print function.
 */
-void	Array_print		(const struct Array* this, void (*print)(void*));
+void Array_print(const struct Array* this, void (*print)(void*));
 
 #endif

@@ -11,10 +11,10 @@ struct LinkedList {
 };
 
 
-void	LinkedList_init		(struct LinkedList* this, size_t length, size_t typeSize);
-void	LinkedList_free		(struct LinkedList* this);
-void	LinkedList_access	(struct LinkedList* this, size_t index, void* into);
-void	LinkedList_assign	(struct LinkedList* this, size_t index, void* from);
-void	LinkedList_print	(struct LinkedList* this, void(*print)(void*));
+struct LinkedList* LinkedList_init(size_t length, size_t typeSize);
+void LinkedList_free(struct LinkedList* this);
+void* LinkedList_access(struct LinkedList* this, size_t index);
+void LinkedList_assign(struct LinkedList* this, size_t index, void* from);
+void LinkedList_print(struct LinkedList* this, void(*print)(void*));
 
 #endif  

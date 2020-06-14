@@ -4,7 +4,7 @@ EXE = exe
 ArrayTests: ArrayTests.o Array.o Utility.o
 	gcc ArrayTests.o Array.o Utility.o -o $(EXE)
 
-linkedListTests: LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o
+LinkedListTests: LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o
 	gcc LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o -o $(EXE)
 
 Array.o: Array.c

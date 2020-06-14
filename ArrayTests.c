@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "Array.h"
 #include "Utility.h"
 
@@ -6,41 +7,35 @@
 
 int main()
 {
-	struct Array array;
-	Array_init(&array, 10, sizeof(double));
+	struct Array* array = Array_init(10, sizeof(double));
 
 	for (int i = 0; i < 10; i++)
 	{
 		double num = 3.14 * i;
-		Array_assign(&array, i, (void*)&num);	
+		Array_assign(array, i, (void*)&num);	
 	}
 
-	Array_print(&array, printDouble);
+	Array_print(array, printDouble);
 
 	for (int i = 9; i >= 0; i--)
 	{
-		double num;
-		Array_access(&array, i, (void*)&num);
-		printf("Access: %lf ", num);
-		num = 0;
-		Array_pop(&array, (void*)&num);
-		printf("Pop: %lf \n", num);
+		printf("Access: %lf ", *(double*)Array_access(array, i));
+		printf("Peak: %lf \n", *(double*)Array_peak(array));
+		Array_pop(array);
 	}
 
-	Array_print(&array, printDouble);
+	Array_print(array, printDouble);
 
 	for (int i = 0; i < 10; i++)
 	{
 		double num = 2.0 * i;
-		Array_push(&array, (void*)&num);
+		Array_push(array, (void*)&num);
 		printf("Push: %lf ", num);
-		num = 0;
-		Array_access(&array, i, (void*)&num);
-		printf("Access: %lf \n", num);
+		printf("Access: %lf \n", *(double*)Array_access(array, i));
 	}
 
-	Array_print(&array, printDouble);
+	Array_print(array, printDouble);
 
-	Array_free(&array);
+	Array_free(array);
 	return 0;
 }
