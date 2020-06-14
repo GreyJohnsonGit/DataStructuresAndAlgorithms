@@ -1,21 +1,30 @@
 FLAGS = -g -std=c11
-MODULE = array
-MAIN = main
+EXE = exe
 
-default: $(MAIN).o array.o linkedList.o utility.o
-	gcc $(MAIN).o array.o linkedList.o utility.o -o exe
+ArrayTests: ArrayTests.o Array.o Utility.o
+	gcc ArrayTests.o Array.o Utility.o -o $(EXE)
 
-$(MAIN).o: $(MAIN).c
-	gcc $(FLAGS) -c $(MAIN).c
+linkedListTests: LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o
+	gcc LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o -o $(EXE)
 
-utility.o: utility.c utility.h
-	gcc $(FLAGS) -c utility.c
+Array.o: Array.c
+	gcc $(FLAGS) -c Array.c
 
-array.o: array.c array.h
-	gcc $(FLAGS) -c array.c
+ArrayTests.o: ArrayTests.c
+	gcc $(FLAGS) -c ArrayTests.c
 
-linkedList.o: linkedList.c linkedList.h
-	gcc $(FLAGS) -c linkedList.c
+LinkedList.o: LinkedList.c
+	gcc $(FLAGS) -c LinkedList.c
+
+LinkedListNode.o: LinkedListNode.c
+	gcc $(FLAGS) -c LinkedListNode.c
+
+LinkedListTests.o: LinkedListTests.c
+	gcc $(FLAGS) -c LinkedListTests.c
+
+Utility.o: Utility.c
+	gcc $(FLAGS) -c Utility.c
 
 clean:
 	rm -rf *.o
+	rm $(EXE)

@@ -1,4 +1,6 @@
-#include "array.h"
+#include <stdio.h>
+#include "Array.h"
+#include "Utility.h"
 
 // Testing for Array functions
 
@@ -13,7 +15,7 @@ int main()
 		Array_assign(&array, i, (void*)&num);	
 	}
 
-	Array_print(&array, print_double);
+	Array_print(&array, printDouble);
 
 	for (int i = 9; i >= 0; i--)
 	{
@@ -25,7 +27,7 @@ int main()
 		printf("Pop: %lf \n", num);
 	}
 
-	Array_print(&array, print_double);
+	Array_print(&array, printDouble);
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -37,7 +39,7 @@ int main()
 		printf("Access: %lf \n", num);
 	}
 
-	Array_print(&array, print_double);
+	Array_print(&array, printDouble);
 
 	Array_free(&array);
 	return 0;

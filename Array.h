@@ -1,10 +1,11 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
-#include <stdlib.h>
-#include <stdio.h>
-#include "utility.h"
+#include <stddef.h>
 
+/*
+*	Generic Array Struct
+*/
 struct Array {
 	void* data;
 	size_t typeSize;
@@ -42,12 +43,17 @@ void	Array_delete	(struct Array* this, size_t index);
 /*
 *	Returns the size of $this.
 */
-size_t	Array_getSize	(const struct Array* this);
+void	Array_getSize	(const struct Array* this, size_t* into);
 
 /*
 *	Returns the length of $this.
 */
-size_t	Array_getLength	(const struct Array* this);
+void	Array_getLength	(const struct Array* this, size_t* into);
+
+/*
+*	Byte copies final value of $this into $into
+*/
+void	Array_peak		(const struct Array* this, size_t* into);
 
 /*
 *	Pops final element from $this into $into. The popped element is deleted and
