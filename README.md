@@ -10,9 +10,11 @@ Arrays - Complete
 
 Linked List - Complete
 
-Stack - In Progress
+Stack - Complete
 
 Queue - Soon(TM)
+
+HashTable - Eventaully(TM)
 
 ## Notes
 

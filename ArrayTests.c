@@ -17,7 +17,7 @@ int main()
 	}
 	Array_print(array, printDouble);
 
-	printf("\n\nAccess and Delete\n");
+	printf("\n\nAccess and Delete:\n");
 	for (int i = 9; i >= 0; i--)
 	{
 		printf("Access: %lf \n", *(double*)Array_access(array, i));

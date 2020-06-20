@@ -7,7 +7,7 @@ struct Array* Array_init(size_t length, size_t typeSize) {
 	struct Array* this = malloc(sizeof(struct Array));
 	this->typeSize = typeSize;
 	this->size = 1;
-	this->data = NULL;
+	this->data = malloc(typeSize);
 	Array_resize(this, length);
 	return this;
 }
