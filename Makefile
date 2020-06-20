@@ -1,27 +1,17 @@
 FLAGS = -g -std=c11
+ARRAYTESTS_SRC = ArrayTests.o Array.o Utility.o
+LINKEDLISTTESTS_SRC = LinkedListTests.o LinkedList.o Utility.o
 
 default: ArrayTests LinkedListTests
 
-ArrayTests: ArrayTests.o Array.o Utility.o
-	gcc ArrayTests.o Array.o Utility.o -o ArrayTests.go
+ArrayTests: $(ARRAYTESTS_SRC)
+	gcc $(ARRAYTESTS_SRC) -o ArrayTests.go
 
-LinkedListTests: LinkedListTests.o LinkedList.o Utility.o
-	gcc LinkedListTests.o LinkedList.o Utility.o -o LinkedListTests.go
+LinkedListTests: $(LINKEDLISTTESTS_SRC)
+	gcc $(LINKEDLISTTESTS_SRC) -o LinkedListTests.go
 
-Array.o: Array.c
-	gcc $(FLAGS) -c Array.c
-
-ArrayTests.o: ArrayTests.c
-	gcc $(FLAGS) -c ArrayTests.c
-
-LinkedList.o: LinkedList.c
-	gcc $(FLAGS) -c LinkedList.c
-
-LinkedListTests.o: LinkedListTests.c
-	gcc $(FLAGS) -c LinkedListTests.c
-
-Utility.o: Utility.c
-	gcc $(FLAGS) -c Utility.c
+%.o: %.c
+	gcc $(FLAGS) -c $<
 
 clean:
 	rm -rf *.o
