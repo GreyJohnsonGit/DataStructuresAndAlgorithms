@@ -13,7 +13,7 @@ int main()
 	for (int i = 0; i < 10; i++)
 	{
 		double num = 3.14 * i;
-		Array_assign(array, i, (void*)&num);	
+		copy(Array_access(array, i), &num, sizeof(double));	
 	}
 	Array_print(array, printDouble);
 

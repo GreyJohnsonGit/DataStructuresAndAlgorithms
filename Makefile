@@ -1,11 +1,12 @@
 FLAGS = -g -std=c11
-EXE = exe
+
+default: ArrayTests LinkedListTests
 
 ArrayTests: ArrayTests.o Array.o Utility.o
-	gcc ArrayTests.o Array.o Utility.o -o $(EXE)
+	gcc ArrayTests.o Array.o Utility.o -o ArrayTests.go
 
-LinkedListTests: LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o
-	gcc LinkedListTests.o LinkedList.o LinkedListNode.o Utility.o -o $(EXE)
+LinkedListTests: LinkedListTests.o LinkedList.o Utility.o
+	gcc LinkedListTests.o LinkedList.o Utility.o -o LinkedListTests.go
 
 Array.o: Array.c
 	gcc $(FLAGS) -c Array.c
@@ -16,9 +17,6 @@ ArrayTests.o: ArrayTests.c
 LinkedList.o: LinkedList.c
 	gcc $(FLAGS) -c LinkedList.c
 
-LinkedListNode.o: LinkedListNode.c
-	gcc $(FLAGS) -c LinkedListNode.c
-
 LinkedListTests.o: LinkedListTests.c
 	gcc $(FLAGS) -c LinkedListTests.c
 
@@ -27,4 +25,4 @@ Utility.o: Utility.c
 
 clean:
 	rm -rf *.o
-	rm $(EXE)
+	rm -rf *.go
