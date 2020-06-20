@@ -3,6 +3,7 @@ CC = gcc
 ARRAYTESTS_SRC = ArrayTests.o Array.o Utility.o
 LINKEDLISTTESTS_SRC = LinkedListTests.o LinkedList.o Utility.o
 STACKTESTS_SRC = StackTests.o Stack.o Array.o Utility.o
+QUEUE_SRC = QueueTests.o Queue.o Array.o Utility.o
 
 default: ArrayTests LinkedListTests StackTests
 
