@@ -10,9 +10,9 @@ Arrays - Complete
 
 Linked List - Complete
 
-Stack - Soon(TM)
+Stack - In Progress
 
-Queue - Eventually(TM)
+Queue - Soon(TM)
 
 ## Notes
 

@@ -17,31 +17,21 @@ int main()
 	}
 	Array_print(array, printDouble);
 
-	printf("\n\nAccess, Peak, Pop:\n");
+	printf("\n\nAccess and Delete\n");
 	for (int i = 9; i >= 0; i--)
 	{
-		printf("Access: %lf ", *(double*)Array_access(array, i));
-		printf("Peak: %lf \n", *(double*)Array_peak(array));
-		Array_pop(array);
+		printf("Access: %lf \n", *(double*)Array_access(array, i));
+		Array_delete(array, array->length - 1);
 	}
 	Array_print(array, printDouble);
 
-	printf("\n\nPush up above size:\n");
+	printf("\n\nInsert above size:\n");
 	for (int i = 0; i < 20; i++)
 	{
 		double num = 2.0 * i;
-		Array_push(array, (void*)&num);
+		Array_insert(array, array->length, (void*)&num);
 		printf("Push: %lf \n", num);
 	}
-	Array_print(array, printDouble);
-
-	printf("\n\nDelete [3]:\n");
-	Array_delete(array, 3);
-	Array_print(array, printDouble);
-
-	printf("\n\nInsert 10 at [3]:\n");
-	double num = 10.0;
-	Array_insert(array, 3, &num);
 	Array_print(array, printDouble);
 
 	printf("\n\nCheck Length:\n%lu\n", Array_getLength(array));

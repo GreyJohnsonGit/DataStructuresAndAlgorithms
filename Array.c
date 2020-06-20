@@ -39,20 +39,6 @@ void Array_insert(struct Array* this, size_t index, const void* from) {
 
 size_t Array_getLength(const struct Array* this) {
 	return this->length;
-}	
-
-void* Array_peak (const struct Array* this) {
-	return Array_access(this, this->length - 1);
-}
-
-void Array_pop(struct Array* this) {
-	Array_resize(this, this->length - 1);
-}
-
-void Array_push(struct Array* this, const void* from) {
-	// Expand to fit new element
-	Array_resize(this, this->length + 1);
-	copy(Array_access(this, this->length - 1), from, this->typeSize);
 }
 
 void Array_resize(struct Array* this, size_t newLength) {
