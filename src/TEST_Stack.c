@@ -2,7 +2,7 @@
 #include "Stack.h"
 #include "Utility.h"
 
-int main() {
+int TEST_Stack() {
     struct Stack* stack = Stack_init(sizeof(size_t));
 
     printf("\n\nPushing Up Stack:\n");

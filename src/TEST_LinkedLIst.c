@@ -2,7 +2,7 @@
 #include "Utility.h"
 #include <stdio.h>
 
-int main()
+int TEST_LinkedList()
 {
 	struct LinkedList* list = LinkedList_init(sizeof(int));
 

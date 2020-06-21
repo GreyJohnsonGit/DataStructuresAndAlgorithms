@@ -3,9 +3,7 @@
 #include "Array.h"
 #include "Utility.h"
 
-// Testing for Array functions
-
-int main()
+int TEST_Array()
 {
 	struct Array* array = Array_init(10, sizeof(double));
 

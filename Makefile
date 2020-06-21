@@ -1,24 +1,29 @@
-FLAGS = -g -std=c11
 CC = gcc
-ARRAYTESTS_SRC = ArrayTests.o Array.o Utility.o
-LINKEDLISTTESTS_SRC = LinkedListTests.o LinkedList.o Utility.o
-STACKTESTS_SRC = StackTests.o Stack.o Array.o Utility.o
-QUEUE_SRC = QueueTests.o Queue.o Array.o Utility.o
+CPPFLAGS = -Iinclude -MMD -MP
+CFLAGS = -g -std=c11 -Wall
 
-default: ArrayTests LinkedListTests StackTests
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+SRC := $(wildcard $(SRC_DIR)/*.c)
+OBJ := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+BIN := $(BIN_DIR)/exe
 
-ArrayTests: $(ARRAYTESTS_SRC)
-	$(CC) $(ARRAYTESTS_SRC) -o ArrayTests.go
+.PHONY: clean default run
 
-LinkedListTests: $(LINKEDLISTTESTS_SRC)
-	$(CC) $(FLAGS) $(LINKEDLISTTESTS_SRC) -o LinkedListTests.go
+default: $(BIN)
 
-StackTests: $(STACKTESTS_SRC)
-	$(CC) $(FLAGS) $(STACKTESTS_SRC) -o StackTests.go
+run:
+	./bin/exe
 
-%.o: %.c
-	$(CC) $(FLAGS) -c $<
+$(BIN): $(OBJ)
+	$(CC) -o $@ $^ 
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -rf *.o
-	rm -rf *.go
+	rm -rf $(OBJ_DIR)/*
+	rm -rf $(BIN_DIR)/*
+
+-include $(OBJ:.o=.d)
