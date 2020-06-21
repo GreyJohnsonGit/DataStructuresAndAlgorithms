@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 int TEST_Stack() {
-    struct Stack* stack = Stack_init(sizeof(size_t));
+    struct Stack* stack = Stack_create(sizeof(size_t));
 
     printf("\n\nPushing Up Stack:\n");
     for (size_t i = 0; i < 10; i++) {
@@ -19,7 +19,7 @@ int TEST_Stack() {
     }
     Stack_print(stack, printInt);
 
-    Stack_free(stack);
+    Stack_destroy(stack);
 
     return 0;
 }

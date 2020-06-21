@@ -5,7 +5,7 @@
 
 int TEST_LinkedList()
 {
-	struct LinkedList* list = LinkedList_init(sizeof(int));
+	struct LinkedList* list = LinkedList_create(sizeof(int));
 
 	printf("\n\nInitialize LinkedList:\n");
 	LinkedList_print(list, printInt);
@@ -21,7 +21,7 @@ int TEST_LinkedList()
 	struct LinkedListNode* current = LinkedList_head(list); 
 	for(size_t i = 0; i < 10; i++) {
 		int num = (int)i * 10;
-		copy(LinkedListNode_access(current), &num, list->typeSize);
+		copy(LinkedListNode_access(current), &num, LinkedList_getTypeSize(list));
 		current = LinkedListNode_forward(current, 1);
 	}
 	LinkedList_print(list, printInt);
@@ -41,7 +41,7 @@ int TEST_LinkedList()
 	}
 	LinkedList_print(list, printInt);
 
-	LinkedList_free(list);
+	LinkedList_destroy(list);
 
 	return 0;
 }

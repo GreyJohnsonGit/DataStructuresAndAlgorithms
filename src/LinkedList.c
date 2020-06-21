@@ -5,7 +5,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct LinkedListNode* LinkedListNode_init(struct LinkedList* parent) {
+struct LinkedList {
+	struct LinkedListNode* head;
+	struct LinkedListNode* tail;
+	size_t typeSize;
+};
+
+struct LinkedListNode {
+	struct LinkedList* parent;
+	struct LinkedListNode* next;
+	struct LinkedListNode* prev;
+	size_t typeSize;
+	void* value;
+};
+
+struct LinkedListNode* LinkedListNode_create(struct LinkedList* parent) {
 	struct LinkedListNode* this = malloc(sizeof(struct LinkedListNode));
 	this->parent = parent;
 	this->next = NULL;
@@ -15,7 +29,7 @@ struct LinkedListNode* LinkedListNode_init(struct LinkedList* parent) {
 	return this;
 }
 
-void LinkedListNode_free(struct LinkedListNode* this) {
+void LinkedListNode_destroy(struct LinkedListNode* this) {
 	free(this->value);
 	free(this);
 }
@@ -50,7 +64,7 @@ struct LinkedListNode* LinkedListNode_backward(struct LinkedListNode* this, size
 }
 
 struct LinkedListNode* LinkedListNode_append(struct LinkedListNode* this, const void* from) {
-	struct LinkedListNode* newNode = LinkedListNode_init(this->parent);
+	struct LinkedListNode* newNode = LinkedListNode_create(this->parent);
 	copy(newNode->value, from, this->typeSize);
 	struct LinkedListNode* afterNewNode = this->next;
 	if (afterNewNode == NULL) {
@@ -62,7 +76,7 @@ struct LinkedListNode* LinkedListNode_append(struct LinkedListNode* this, const 
 }
 
 struct LinkedListNode* LinkedListNode_prepend(struct LinkedListNode* this, const void* from) {
-	struct LinkedListNode* newNode = LinkedListNode_init(this->parent);
+	struct LinkedListNode* newNode = LinkedListNode_create(this->parent);
 	copy(newNode->value, from, this->typeSize);
 	struct LinkedListNode* beforeNewNode = this->prev;
 	if (beforeNewNode == NULL) {
@@ -81,10 +95,10 @@ void LinkedListNode_delete(struct LinkedListNode* this) {
 	if(this->next == NULL) {
 		this->parent->tail = this->prev;
 	}
-	LinkedListNode_free(this);
+	LinkedListNode_destroy(this);
 }
 
-struct LinkedList* LinkedList_init(size_t typeSize) {
+struct LinkedList* LinkedList_create(size_t typeSize) {
 	struct LinkedList* this = malloc(sizeof(struct LinkedList));
 	this->typeSize = typeSize;
 	this->head = NULL;
@@ -92,13 +106,13 @@ struct LinkedList* LinkedList_init(size_t typeSize) {
 	return this;
 }
 
-void LinkedList_free(struct LinkedList* this) {
+void LinkedList_destroy(struct LinkedList* this) {
 	struct LinkedListNode* current = this->head;
 	struct LinkedListNode* next;
 
 	while (current != NULL) {
 		next = current->next;
-		LinkedListNode_free(current);
+		LinkedListNode_destroy(current);
 		current = next;
 	}
 }
@@ -116,7 +130,7 @@ void LinkedList_print(struct LinkedList* this, void(*print)(void*)) {
 }
 
 struct LinkedListNode* LinkedList_append(struct LinkedList* this, const void* from) {
-	struct LinkedListNode* newNode = LinkedListNode_init(this);	
+	struct LinkedListNode* newNode = LinkedListNode_create(this);	
 	copy(newNode->value, from, this->typeSize);
 	LinkedListNode_link(this->tail, newNode);
 	this->tail = newNode;
@@ -127,7 +141,7 @@ struct LinkedListNode* LinkedList_append(struct LinkedList* this, const void* fr
 }
 
 struct LinkedListNode* LinkedList_prepend(struct LinkedList* this, const void* from) {
-	struct LinkedListNode* newNode = LinkedListNode_init(this);	
+	struct LinkedListNode* newNode = LinkedListNode_create(this);	
 	copy(newNode->value, from, this->typeSize);
 	LinkedListNode_link(newNode, this->head);
 	this->head = newNode;
@@ -143,4 +157,8 @@ struct LinkedListNode* LinkedList_head(struct LinkedList* this) {
 
 struct LinkedListNode* LinkedList_tail(struct LinkedList* this) {
 	return this->tail;
+}
+
+size_t LinkedList_getTypeSize(struct LinkedList* this) {
+	return this->typeSize;
 }

@@ -6,7 +6,7 @@
 
 int TEST_Array()
 {
-	struct Array* array = Array_init(10, sizeof(double));
+	struct Array* array = Array_create(10, sizeof(double));
 
 	printf("\n\nInitialize array:\n");
 	for (int i = 0; i < 10; i++)
@@ -20,7 +20,7 @@ int TEST_Array()
 	for (int i = 9; i >= 0; i--)
 	{
 		printf("Access: %lf \n", *(double*)Array_access(array, i));
-		Array_delete(array, array->length - 1);
+		Array_delete(array, Array_getLength(array) - 1);
 	}
 	Array_print(array, printDouble);
 
@@ -28,7 +28,7 @@ int TEST_Array()
 	for (int i = 0; i < 20; i++)
 	{
 		double num = 2.0 * i;
-		Array_insert(array, array->length, (void*)&num);
+		Array_insert(array, Array_getLength(array), (void*)&num);
 		printf("Push: %lf \n", num);
 	}
 	Array_print(array, printDouble);
@@ -39,6 +39,6 @@ int TEST_Array()
 	Array_resize(array, 1);
 	Array_print(array, printDouble);
 
-	Array_free(array);
+	Array_destroy(array);
 	return 0;
 }

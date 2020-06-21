@@ -7,7 +7,14 @@
 
 #define RESIZE_CONSTANT 2
 
-struct Array* Array_init(size_t length, size_t typeSize) {
+struct Array {
+	void* data;
+	size_t typeSize;
+	size_t size;
+	size_t length;
+};
+
+struct Array* Array_create(size_t length, size_t typeSize) {
 	struct Array* this = malloc(sizeof(struct Array));
 	this->typeSize = typeSize;
 	this->size = 1;
@@ -16,7 +23,7 @@ struct Array* Array_init(size_t length, size_t typeSize) {
 	return this;
 }
 
-void Array_free(struct Array* this) {
+void Array_destroy(struct Array* this) {
 	free(this->data);
 	this->data = NULL;
 }
@@ -42,6 +49,10 @@ void Array_insert(struct Array* this, size_t index, const void* from) {
 
 size_t Array_getLength(const struct Array* this) {
 	return this->length;
+}
+
+size_t Array_getTypeSize(const struct Array* this) {
+	return this->typeSize;
 }
 
 void Array_resize(struct Array* this, size_t newLength) {
