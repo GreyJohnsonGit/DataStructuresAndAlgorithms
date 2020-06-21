@@ -1,8 +1,9 @@
-#include "LinkedList.h"
+#include <LinkedList.h>
+
+#include <Utility.h>
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Utility.h"
 
 struct LinkedListNode* LinkedListNode_init(struct LinkedList* parent) {
 	struct LinkedListNode* this = malloc(sizeof(struct LinkedListNode));

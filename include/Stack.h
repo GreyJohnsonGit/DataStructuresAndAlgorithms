@@ -1,8 +1,9 @@
 #ifndef STACK_H_
 #define STACK_H_
 
+#include <Array.h>
+
 #include <stddef.h>
-#include "Array.h"
 
 struct Stack {
     struct Array* array;

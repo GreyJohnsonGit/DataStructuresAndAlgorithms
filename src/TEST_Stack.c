@@ -1,6 +1,7 @@
+#include <Stack.h>
+#include <Utility.h>
+
 #include <stdio.h>
-#include "Stack.h"
-#include "Utility.h"
 
 int TEST_Stack() {
     struct Stack* stack = Stack_init(sizeof(size_t));

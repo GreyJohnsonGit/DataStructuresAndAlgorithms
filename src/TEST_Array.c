@@ -1,7 +1,8 @@
+#include <Array.h>
+#include <Utility.h>
+
 #include <stdio.h>
 #include <stdlib.h>
-#include "Array.h"
-#include "Utility.h"
 
 int TEST_Array()
 {
