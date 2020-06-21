@@ -18,7 +18,7 @@ HashTable - Eventaully(TM)
 
 ## Notes
 
-I'm not using compile time arrays, because I want to have as much control as possible (well as much as I can get with the code still being portable in C ie. no x86).
+I'm not using compile time arrays, because I want to have as much control as possible (well as much as I can get with the code still being portable in C ie. no assembly!).
 
 # Descriptions
 
