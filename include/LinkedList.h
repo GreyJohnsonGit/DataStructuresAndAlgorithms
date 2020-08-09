@@ -24,4 +24,5 @@ struct LinkedListNode* LinkedList_prepend(struct LinkedList* this, const void* f
 struct LinkedListNode* LinkedList_head(struct LinkedList* this);
 struct LinkedListNode* LinkedList_tail(struct LinkedList* this);
 size_t LinkedList_getTypeSize(struct LinkedList* this);
-#endif  
+
+#endif 
