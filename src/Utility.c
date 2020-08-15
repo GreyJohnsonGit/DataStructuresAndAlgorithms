@@ -8,10 +8,10 @@ void copy(void* into, const void* from, size_t typeSize) {
 	}
 }
 
-void printInt(void* num) {
-	printf("%d", *((int*)num));
+void printInt(const void* num, void* closure) {
+	printf("%d, ", *((int*)num));
 }
 
-void printDouble(void* num) {
-	printf("%lf", *((double*)num));
+void printDouble(const void* num, void* closure) {
+	printf("%lf, ", *((double*)num));
 }
