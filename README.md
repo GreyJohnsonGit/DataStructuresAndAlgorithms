@@ -16,9 +16,6 @@ Queue - Soon(TM)
 
 HashTable - Eventaully(TM)
 
-## Notes
-
-I'm not using C's array syntax because I want to build on top of the data structrues I build.
 
 # Descriptions
 
