@@ -33,4 +33,4 @@ Easy dynamic array implemented stack. Potentially large memory overhead due to r
 
 ## Queue - Soon(TM)
 
-I did a unfurled linked list because I get (most of) the speed from array and the ease of implementation of a linked list.  
+I did a unfurled linked list because I get the speed from array and the ease of implementation of a linked list (probably wrong, but it seems like a neat way to impliment).  
