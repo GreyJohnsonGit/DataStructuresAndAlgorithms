@@ -70,3 +70,7 @@ void Array_print(const struct Array* this, void (*print)(void*)) {
 		printf("\n");
 	}
 }
+
+void Array_Hello(const struct Array* this) {
+	printf("HELLO!");
+}
