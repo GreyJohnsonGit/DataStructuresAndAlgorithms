@@ -72,5 +72,5 @@ void Array_print(const struct Array* this, void (*print)(void*)) {
 }
 
 void Array_Hello(const struct Array* this) {
-	printf("Hello");
+	printf("Hello There");
 }
