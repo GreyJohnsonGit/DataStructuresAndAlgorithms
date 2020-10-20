@@ -3,7 +3,7 @@
 
 #include <stddef.h>
 
-struct Queue;
+struct Queue;f
 
 struct Queue* Queue_create(size_t typeSize);
 void Queue_destroy(struct Queue* this);
