@@ -14,6 +14,6 @@ size_t Array_getLength(const struct Array* this);
 size_t Array_getTypeSize(const struct Array* this);
 void Array_resize(struct Array* this, size_t newLength);
 void Array_print(const struct Array* this, void (*print)(void*));
-void Array_Hello(const struct Array* this);
+void Array_Hello(const struct Array*);
 
 #endif
